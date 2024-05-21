@@ -77,3 +77,25 @@ server.error.whitelabel.enabled=true : 오류 처리 화면을 못 찾을 시, �
 server.error.path=/error : 오류 페이지 경로, 스프링이 자동 등록하는 서블릿 글로벌 오류 페이지 경로
 와 BasicErrorController 오류 컨트롤러 경로에 함께 사용된다
 ```
+
+@ControllerAdvice
+1.@ControllerAdvice 는 대상으로 지정한 여러 컨트롤러에 @ExceptionHandler , @InitBinder 기능
+을 부여해주는 역할을 한다.
+2.@ControllerAdvice 에 대상을 지정하지 않으면 모든 컨트롤러에 적용된다. (글로벌 적용)
+3.@RestControllerAdvice 는 @ControllerAdvice 와 같고, @ResponseBody 가 추가되어 있다.
+4.@Controller , @RestController 의 차이와 같다.
+
+# 대상 컨트롤러 지정 방법
+```
+// Target all Controllers annotated with @RestController
+@ControllerAdvice(annotations = RestController.class)
+public class ExampleAdvice1 {}
+// Target all Controllers within specific packages
+@ControllerAdvice("org.example.controllers")
+public class ExampleAdvice2 {}
+// Target all Controllers assignable to specific classes
+@ControllerAdvice(assignableTypes = {ControllerInterface.class, 
+AbstractController.class})
+public class ExampleAdvice3 {}
+```
+https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-advice.html (스프링 공식 문서 참고)
